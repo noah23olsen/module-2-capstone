@@ -1,9 +1,11 @@
 package com.techelevator.tenmo;
 
+import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.AuthenticatedUser;
 import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
+import com.techelevator.tenmo.services.TenmoService;
 
 public class App {
 
@@ -23,7 +25,7 @@ public class App {
     private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
 
     private AuthenticatedUser currentUser;
-
+    TenmoService tenmoService;
     public static void main(String[] args) {
         App app = new App();
         app.run();
@@ -33,8 +35,7 @@ public class App {
         consoleService.printGreeting();
         loginMenu();
         if (currentUser != null) {
-            // TODO: Instantiate services that require the current user to exist here
-
+            tenmoService = new TenmoService(API_BASE_URL,currentUser);
             mainMenu();
         }
     }
@@ -97,8 +98,9 @@ public class App {
     }
 
 	private void viewCurrentBalance() {
-		// TODO Auto-generated method stub
-		
+        Account account = tenmoService.getAccountFromUser();
+        double teBucks = account.getTeBucks();
+        System.out.printf("Your current account balance is: $%1.2f%n", teBucks);
 	}
 
 	private void viewTransferHistory() {

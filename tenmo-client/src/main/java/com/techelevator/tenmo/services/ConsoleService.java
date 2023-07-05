@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 public class ConsoleService {
 
+    private static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+
     private final Scanner scanner = new Scanner(System.in);
 
     public int promptForMenuSelection(String prompt) {
@@ -43,6 +46,8 @@ public class ConsoleService {
         System.out.println("4: Send TE bucks");
         System.out.println("5: Request TE bucks");
         System.out.println("0: Exit");
+        System.out.println("--------------------------------");
+
         System.out.println();
     }
 
