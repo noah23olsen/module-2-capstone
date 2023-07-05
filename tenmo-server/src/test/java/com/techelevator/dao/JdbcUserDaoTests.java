@@ -83,6 +83,14 @@ public class JdbcUserDaoTests extends BaseDaoTests {
         Assert.assertEquals(USER_3, users.get(2));
     }
 
+    @Test
+    public void findAllExceptUser_returns_all_except_user() {
+        List<User> users = sut.findAllExceptUser(1001);
+
+        Assert.assertNotNull(users);
+        Assert.assertEquals(2, users.size());
+    }
+
     @Test(expected = DataIntegrityViolationException.class)
     public void create_user_with_null_username() {
         sut.create(null, USER_3.getPassword());
