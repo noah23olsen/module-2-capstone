@@ -7,5 +7,5 @@ public interface TransferDao {
 
     void updateFromAccount(Transfer transfer);
 
-
+    void updateToAccount(Transfer transfer);
 }
