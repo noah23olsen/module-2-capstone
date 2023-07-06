@@ -5,6 +5,7 @@ import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TenmoService;
 
+import java.security.Principal;
 import java.util.Arrays;
 
 public class App {
@@ -117,18 +118,37 @@ public class App {
 
     private void sendBucks() {
         User[] users = tenmoService.listUsers();
-        if (users != null) {
-            consoleService.printUsers(users);
-            int userId = consoleService.promptForMenuSelection("Please Select an ID: ");
-        }
-//      Transfersfer transferEnteredByUser = consoleService.promptForBigDecimal()
-        // TODO Auto-generated method stub
+        consoleService.printUsers(users);
 
+        int userIdTo = consoleService.promptForInt("Enter ID of user you are sending to (0 to cancel): ");
+        if (userIdTo == 0) {
+            mainMenu();
+        }
+        for (User u : users) {
+            if (u.getId() == userIdTo) {
+                break;
+            } else {
+                System.out.println("ID Invalid, Please Enter Valid ID");
+                sendBucks();
+            }
+        }
+
+
+        int amountToTransfer = consoleService.promptForInt("Enter amount:");
+        if (amountToTransfer <= 0) {
+            consoleService.printWrongAmount();
+        }
+
+
+        tenmoService.transferBetweenAccounts(new Transfer(amountToTransfer, userIdTo,currentUser.getUser().getId(),2,2));
     }
+// TODO Auto-generated method stub
+
 
     private void requestBucks() {
         // TODO Auto-generated method stub
 
     }
+
 
 }

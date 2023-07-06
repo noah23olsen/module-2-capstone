@@ -35,13 +35,15 @@ public class TenmoService {
 
     }
     public Transfer transferBetweenAccounts(Transfer transfer){
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Transfer> entity = new HttpEntity<Transfer>(transfer,headers);
+        String url = apiBaseUrl + "accounts/transfers";
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setBearerAuth(currentUser.getToken());
+        HttpEntity<Void> request = new HttpEntity<Void>(httpHeaders);
         Transfer returnedTransfer = null;
         try {
-            returnedTransfer = restTemplate.postForObject(apiBaseUrl + "accounts/transfers",
-                    entity,Transfer.class);
+            ResponseEntity<Transfer> entity = restTemplate.exchange(url,HttpMethod.POST,request,Transfer.class);
+            returnedTransfer = entity.getBody();
         } catch (ResourceAccessException e) {
             BasicLogger.log("Unable to connect to server");
         } catch (RestClientResponseException e) {
