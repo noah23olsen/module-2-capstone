@@ -1,11 +1,11 @@
 package com.techelevator.tenmo;
 
-import com.techelevator.tenmo.model.Account;
-import com.techelevator.tenmo.model.AuthenticatedUser;
-import com.techelevator.tenmo.model.UserCredentials;
+import com.techelevator.tenmo.model.*;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TenmoService;
+
+import java.util.Arrays;
 
 public class App {
 
@@ -26,6 +26,7 @@ public class App {
 
     private AuthenticatedUser currentUser;
     TenmoService tenmoService;
+
     public static void main(String[] args) {
         App app = new App();
         app.run();
@@ -35,10 +36,11 @@ public class App {
         consoleService.printGreeting();
         loginMenu();
         if (currentUser != null) {
-            tenmoService = new TenmoService(API_BASE_URL,currentUser);
+            tenmoService = new TenmoService(API_BASE_URL, currentUser);
             mainMenu();
         }
     }
+
     private void loginMenu() {
         int menuSelection = -1;
         while (menuSelection != EXIT_APP && currentUser == null) {
@@ -97,31 +99,36 @@ public class App {
         }
     }
 
-	private void viewCurrentBalance() {
+    private void viewCurrentBalance() {
         Account account = tenmoService.getAccountFromUser();
         double teBucks = account.getTeBucks();
         System.out.printf("Your current account balance is: $%1.2f%n", teBucks);
-	}
+    }
 
-	private void viewTransferHistory() {
-		// TODO Auto-generated method stub
-		
-	}
+    private void viewTransferHistory() {
+        // TODO Auto-generated method stub
+//        Transfer transfer = tenmoService.
+    }
 
-	private void viewPendingRequests() {
-		// TODO Auto-generated method stub
-		
-	}
+    private void viewPendingRequests() {
+        // TODO Auto-generated method stub
 
-	private void sendBucks() {
+    }
 
-		// TODO Auto-generated method stub
-		
-	}
+    private void sendBucks() {
+        User[] users = tenmoService.listUsers();
+        if (users != null) {
+            consoleService.printUsers(users);
+            int userId = consoleService.promptForMenuSelection("Please Select an ID: ");
+        }
+//      Transfersfer transferEnteredByUser = consoleService.promptForBigDecimal()
+        // TODO Auto-generated method stub
 
-	private void requestBucks() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
+
+    private void requestBucks() {
+        // TODO Auto-generated method stub
+
+    }
 
 }

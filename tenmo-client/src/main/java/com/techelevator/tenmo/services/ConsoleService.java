@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 
+import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 
 import java.math.BigDecimal;
@@ -8,8 +9,7 @@ import java.util.Scanner;
 
 public class ConsoleService {
 
-    private static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
+
 
     private final Scanner scanner = new Scanner(System.in);
 
@@ -95,5 +95,16 @@ public class ConsoleService {
 
     public void printMessage(String message) {
         System.out.println(message);
+    }
+    public void printUsers(User[] users){
+        //TODO Exclude yourself from list
+        System.out.println("----------------------------");
+        System.out.println("Users");
+        System.out.printf("%-10s %-10s\n", "ID", "Name");
+        System.out.println("-----------------------------");
+        for (User u : users){
+            System.out.printf("%-10s %-10s\n", u.getId(),u.getUsername());
+        }
+        System.out.println("---------------------");
     }
 }

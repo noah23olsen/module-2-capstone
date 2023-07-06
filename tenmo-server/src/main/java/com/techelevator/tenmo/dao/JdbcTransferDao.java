@@ -20,7 +20,8 @@ public class JdbcTransferDao implements TransferDao{
     @Override
     public void create(Transfer transfer) {
 
-        String sql = "INSERT INTO transfer (account_from, account_to, amount) VALUES (2, 2, ?, ?, ?);";
+        String sql = "INSERT INTO transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
+                "VALUES (2, 2, (SELECT account_id FROM account WHERE user_id = ?), (SELECT account_id FROM account WHERE user_id = ?), ?);";
 
 
 
@@ -32,9 +33,15 @@ public class JdbcTransferDao implements TransferDao{
 
     @Override
     public void updateFromAccount(Transfer transfer) {
+        String sql = "UPDATE account  SET balance = (balance - ?) WHERE user_id = ?";
+
+        jdbcTemplate.update(sql,transfer.getAmount(),transfer.getUserIdFrom());
+    }
+
+    public void updateToAccount(Transfer transfer){
         String sql = "UPDATE account  SET balance = (balance + ?) WHERE user_id = ?";
 
-        jdbcTemplate.update(sql,transfer.getUserIdFrom(),transfer.getAmount());
+        jdbcTemplate.update(sql,transfer.getAmount(), transfer.getUserIdFrom());
     }
     //update to account (make method as well in transfer dao
     //put both in acconunt controller
