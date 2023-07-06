@@ -8,8 +8,7 @@ import java.util.Scanner;
 
 public class ConsoleService {
 
-    private static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
+
 
     private final Scanner scanner = new Scanner(System.in);
 
