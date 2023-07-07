@@ -8,11 +8,18 @@ public class Transfer {
 
     private int userIdTo;
     private int userIdFrom;
-
     public Transfer(double amount, int userIdTo, int userIdFrom) {
         this.amount = amount;
         this.userIdTo = userIdTo;
         this.userIdFrom = userIdFrom;
+    }
+
+    public Transfer(double amount, int userIdTo, int userIdFrom, int transfer_status, int transfer_type) {
+        this.amount = amount;
+        this.userIdTo = userIdTo;
+        this.userIdFrom = userIdFrom;
+        this.transfer_status = transfer_status;
+        this.transfer_type = transfer_type;
     }
 
     public int getUserIdTo() {
