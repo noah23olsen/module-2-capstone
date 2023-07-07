@@ -42,6 +42,12 @@ public class AccountController {
         int userId = userDao.findIdByUsername(principal.getName());
          return userDao.findAllExceptUser(userId);
     }
+    @RequestMapping(path = "/transfers/list", method = RequestMethod.GET)
+    public List<Transfer> listAllTransfers(Principal principal) {
+        String username = principal.getName();
+        int userId = userDao.findIdByUsername(username);
+        return transferDao.listAllTransfers(userId);
+    }
 
     @RequestMapping(path = "/transfers", method = RequestMethod.POST)
     public Transfer transferBetweenAccounts(Principal principal, @RequestBody Transfer transfer) {

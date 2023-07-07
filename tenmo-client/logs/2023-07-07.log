@@ -6,3 +6,7 @@
 2023-07-07T10:33:12.6855487 500 : [{"timestamp":"2023-07-07T14:33:12.670+00:00","status":500,"error":"Internal Server Error","message":"PreparedStatementCallback; SQL [INSERT INTO tenmo_user (username, password_hash) VALUES (?, ?) RETU... (530 bytes)]
 2023-07-07T10:43:20.3296408 500 : [{"timestamp":"2023-07-07T14:43:20.282+00:00","status":500,"error":"Internal Server Error","message":"PreparedStatementCallback; SQL [INSERT INTO tenmo_user (username, password_hash) VALUES (?, ?) RETU... (530 bytes)]
 2023-07-07T11:07:55.6923825 500 : [{"timestamp":"2023-07-07T15:07:55.663+00:00","status":500,"error":"Internal Server Error","message":"PreparedStatementCallback; SQL [INSERT INTO tenmo_user (username, password_hash) VALUES (?, ?) RETU... (530 bytes)]
+2023-07-07T15:56:18.8264789 I/O error on POST request for "http://localhost:8080/login": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2023-07-07T15:57:07.2787297 401 : [no body]
+2023-07-07T15:58:11.3540243 500 : 
+2023-07-07T15:58:18.0662912 500 : 

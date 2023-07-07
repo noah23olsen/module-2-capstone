@@ -107,6 +107,9 @@ public class App {
     }
 
     private void viewTransferHistory() {
+        Transfer[] transfers = tenmoService.listTransfers();
+        consoleService.printTransfers(transfers);
+
         // TODO Auto-generated method stub
 //        Transfer transfer = tenmoService.
     }

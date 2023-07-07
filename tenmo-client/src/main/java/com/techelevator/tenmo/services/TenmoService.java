@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 
 import org.springframework.http.*;
 
+import javax.xml.crypto.dsig.TransformService;
+
 public class TenmoService {
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -74,5 +76,23 @@ public class TenmoService {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
         }
         return users;
+    }
+
+    public Transfer[] listTransfers(){
+        String url = apiBaseUrl + "accounts/transfers/list";
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setBearerAuth(currentUser.getToken());
+        HttpEntity<Void> request = new HttpEntity<Void>(httpHeaders);
+
+        Transfer[] transfers = null;
+        try {
+            ResponseEntity<Transfer[]> entity = restTemplate.exchange(url,HttpMethod.GET,request, Transfer[].class);
+            transfers = entity.getBody();
+        } catch (ResourceAccessException e) {
+            BasicLogger.log("Unable to connect to server");
+        } catch (RestClientResponseException e) {
+            BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
+        }
+        return transfers;
     }
 }
