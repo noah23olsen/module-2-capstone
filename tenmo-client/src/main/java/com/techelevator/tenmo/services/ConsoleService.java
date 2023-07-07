@@ -112,5 +112,9 @@ public class ConsoleService {
         System.out.println("---------------------");
     }
 
+    public void printInsufficientFunds(){
+        System.out.println("Insufficient Funds for this request.");
+    }
+
 
 }

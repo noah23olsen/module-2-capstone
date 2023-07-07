@@ -28,9 +28,15 @@ public class TenmoService {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBearerAuth(currentUser.getToken());
         HttpEntity<Void> request = new HttpEntity<Void>(httpHeaders);
-
-        ResponseEntity<Account> response = restTemplate.exchange(url, HttpMethod.GET, request, Account.class);
-        Account accountReturnedFromApi = response.getBody();
+        Account accountReturnedFromApi = null;
+        try {
+            ResponseEntity<Account> response = restTemplate.exchange(url, HttpMethod.GET, request, Account.class);
+            accountReturnedFromApi = response.getBody();
+        } catch (ResourceAccessException e) {
+            BasicLogger.log("Unable to connect to server");
+        } catch (RestClientResponseException e) {
+            BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
+        }
         return accountReturnedFromApi;
 
     }
@@ -39,7 +45,7 @@ public class TenmoService {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.setBearerAuth(currentUser.getToken());
-        HttpEntity<Void> request = new HttpEntity<Void>(httpHeaders);
+        HttpEntity<Transfer> request = new HttpEntity<Transfer>(transfer,httpHeaders);
         Transfer returnedTransfer = null;
         try {
             ResponseEntity<Transfer> entity = restTemplate.exchange(url,HttpMethod.POST,request,Transfer.class);

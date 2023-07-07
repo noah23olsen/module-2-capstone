@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,14 +30,21 @@ public class AccountController {
         this.transferDao = transferDao;
     }
 
+    @RequestMapping(path = "", method = RequestMethod.GET)
+    public Account getBalanceForUser(Principal principal) {
+        int userId = userDao.findIdByUsername(principal.getName());
+                return accountDao.getAccountForUser(userId);
+
+    }
+
     @RequestMapping(path = "/list", method = RequestMethod.GET)
-    public List<User> getAccountForUser(Principal principal) {
+    public List<User> listOfAccountsExceptUser(Principal principal) {
         int userId = userDao.findIdByUsername(principal.getName());
          return userDao.findAllExceptUser(userId);
     }
 
     @RequestMapping(path = "/transfers", method = RequestMethod.POST)
-    public void transferBetweenAccounts(Principal principal, @RequestBody Transfer transfer) {
+    public Transfer transferBetweenAccounts(Principal principal, @RequestBody Transfer transfer) {
         String username = principal.getName();
         int userId = userDao.findIdByUsername(username);
         if (userId == transfer.getUserIdFrom()) {
@@ -48,7 +54,7 @@ public class AccountController {
             transferDao.updateFromAccount(transfer);
             transferDao.updateToAccount(transfer);
         }
-
+        return transfer;
     }
 
 

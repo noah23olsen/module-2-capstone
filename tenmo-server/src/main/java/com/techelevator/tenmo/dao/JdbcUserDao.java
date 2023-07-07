@@ -62,6 +62,7 @@ public class JdbcUserDao implements UserDao {
         return users;
     }
 
+
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
@@ -75,7 +76,6 @@ public class JdbcUserDao implements UserDao {
 
         return users;
     }
-
     @Override
     public User findByUsername(String username) {
         if (username == null) throw new IllegalArgumentException("Username cannot be null");
@@ -119,4 +119,8 @@ public class JdbcUserDao implements UserDao {
         user.setAuthorities("USER");
         return user;
     }
+
+
+
 }
+

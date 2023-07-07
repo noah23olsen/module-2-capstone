@@ -4,6 +4,10 @@ public class Account {
         private double teBucks;
         private int userId;
 
+        public Account(){
+
+        }
+
         public Account(double teBucks){
             this.teBucks=teBucks;
         }
@@ -20,4 +24,12 @@ public class Account {
         public void setTeBucks(double teBucks) {
             this.teBucks = teBucks;
         }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

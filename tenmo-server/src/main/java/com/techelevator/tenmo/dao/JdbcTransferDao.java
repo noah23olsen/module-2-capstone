@@ -41,7 +41,7 @@ public class JdbcTransferDao implements TransferDao{
     public void updateToAccount(Transfer transfer){
         String sql = "UPDATE account  SET balance = (balance + ?) WHERE user_id = ?";
 
-        jdbcTemplate.update(sql,transfer.getAmount(), transfer.getUserIdFrom());
+        jdbcTemplate.update(sql,transfer.getAmount(), transfer.getUserIdTo());
     }
     //update to account (make method as well in transfer dao
     //put both in acconunt controller

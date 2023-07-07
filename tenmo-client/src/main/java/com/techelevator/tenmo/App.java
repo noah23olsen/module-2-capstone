@@ -117,6 +117,7 @@ public class App {
     }
 
     private void sendBucks() {
+        Account account = tenmoService.getAccountFromUser();
         User[] users = tenmoService.listUsers();
         consoleService.printUsers(users);
 
@@ -137,10 +138,17 @@ public class App {
         int amountToTransfer = consoleService.promptForInt("Enter amount:");
         if (amountToTransfer <= 0) {
             consoleService.printWrongAmount();
+            sendBucks();
+        }
+        else if (amountToTransfer > account.getTeBucks()){
+            consoleService.printInsufficientFunds();
+            sendBucks();
+        } else {
+            tenmoService.transferBetweenAccounts(new Transfer(amountToTransfer, userIdTo,currentUser.getUser().getId(),2,2));
         }
 
 
-        tenmoService.transferBetweenAccounts(new Transfer(amountToTransfer, userIdTo,currentUser.getUser().getId(),2,2));
+
     }
 // TODO Auto-generated method stub
 
