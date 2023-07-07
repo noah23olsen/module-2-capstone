@@ -147,7 +147,7 @@ public class App {
             consoleService.printInsufficientFunds();
             sendBucks();
         } else {
-            tenmoService.transferBetweenAccounts(new Transfer(amountToTransfer, userIdTo,currentUser.getUser().getId(),2,2));
+            tenmoService.transferBetweenAccounts(new Transfer(2,2,currentUser.getUser().getId(),userIdTo,amountToTransfer));
         }
 
 

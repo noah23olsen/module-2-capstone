@@ -119,9 +119,13 @@ public class ConsoleService {
         System.out.printf("%-10s %-10s %-10s\n", "ID", "From/To", "Amount");
         System.out.println("-----------------------------");
         for (Transfer t : transfers) {
-            System.out.printf("%-10s %-10s %-10s\n", t.getTransfer_id(),t.getUserIdFrom(),t.getAmount());
+            System.out.printf("%-10s %-10s $%1.2f%n", t.getTransfer_id(),t.getFromUsername(),t.getAmount());
         }
         System.out.println("---------------------");
+        //TODO set if question so that FROM USER and TO USER can be plugged into the same print statement depending on which happened.
+        //TODO Set FROM TO to have the "FROM:" or "TO:" inside the print formatting
+        //TODO Begin step 6, dont burn down the house, kick ass.
+        //TODO Write tests SOMEHOW???
     }
 
     public void printInsufficientFunds(){

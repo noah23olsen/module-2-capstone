@@ -50,13 +50,13 @@ public class JdbcTransferDao implements TransferDao{
     @Override
     public List<Transfer> listAllTransfers(int userId) {
         List<Transfer> transfers = new ArrayList<>();
-        String sql = "SELECT transfer_id,transfer_type_id, transfer_status_id, \n" +
-                "a1.user_id AS from_user, a2.user_id AS to_user, amount \n" +
+        String sql = "SELECT tu2.username AS to_username, tu1.username AS from_username, transfer_id,transfer_type_id, transfer_status_id, a1.user_id AS from_user, a2.user_id AS to_user, amount\n" +
                 "from transfer\n" +
                 "JOIN account AS a1 on transfer.account_from = a1.account_id\n" +
                 "JOIN account AS a2 on transfer.account_to = a2.account_id\n" +
-                "JOIN tenmo_user ON a1.user_id = tenmo_user.user_id\n" +
-                "WHERE a1.user_id = ? OR a2.user_id = ?;";
+                "JOIN tenmo_user AS tu1 ON a1.user_id = tu1.user_id\n" +
+                "JOIN tenmo_user AS tu2 ON a2.user_id = tu2.user_id\n" +
+                "WHERE a1.user_id = ? OR a2.user_id = ?";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql,userId,userId);
         while (results.next())   {
@@ -72,11 +72,14 @@ public class JdbcTransferDao implements TransferDao{
 
     private Transfer mapRowToTransfer(SqlRowSet rs) {
         Transfer transfer = new Transfer();
+        transfer.setTransfer_id(rs.getInt("transfer_id"));
         transfer.setTransfer_status(rs.getInt("transfer_status_id"));
         transfer.setTransfer_type(rs.getInt("transfer_type_id"));
         transfer.setAmount(rs.getDouble("amount"));
-        transfer.setUserIdFrom(rs.getInt("account_from"));
-        transfer.setUserIdTo(rs.getInt("account_to"));
+        transfer.setUserIdFrom(rs.getInt("from_user"));
+        transfer.setUserIdTo(rs.getInt("to_user"));
+        transfer.setFromUsername(rs.getString("from_username"));
+        transfer.setToUsername(rs.getString("to_username"));
         return transfer;
     }
 }

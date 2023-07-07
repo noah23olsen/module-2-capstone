@@ -11,6 +11,8 @@ public class Transfer {
     private int userIdTo;
     private int userIdFrom;
     private int transfer_id;
+    private String fromUsername;
+    private String toUsername;
     public Transfer(){
 
     }
@@ -84,17 +86,32 @@ public class Transfer {
         this.transfer_status = transfer_status;
     }
 
+    public String getFromUsername() {
+        return fromUsername;
+    }
+
+    public void setFromUsername(String fromUsername) {
+        this.fromUsername = fromUsername;
+    }
+
+    public String getToUsername() {
+        return toUsername;
+    }
+
+    public void setToUsername(String toUsername) {
+        this.toUsername = toUsername;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transfer transfer = (Transfer) o;
-        return Double.compare(transfer.amount, amount) == 0 && transfer_type == transfer.transfer_type && transfer_status == transfer.transfer_status && userIdTo == transfer.userIdTo && userIdFrom == transfer.userIdFrom && transfer_id == transfer.transfer_id;
+        return Double.compare(transfer.amount, amount) == 0 && transfer_type == transfer.transfer_type && transfer_status == transfer.transfer_status && userIdTo == transfer.userIdTo && userIdFrom == transfer.userIdFrom && transfer_id == transfer.transfer_id && Objects.equals(fromUsername, transfer.fromUsername) && Objects.equals(toUsername, transfer.toUsername);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(amount, transfer_type, transfer_status, userIdTo, userIdFrom, transfer_id);
+        return Objects.hash(amount, transfer_type, transfer_status, userIdTo, userIdFrom, transfer_id, fromUsername, toUsername);
     }
 }
 
