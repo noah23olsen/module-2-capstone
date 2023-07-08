@@ -107,8 +107,11 @@ public class App {
     }
 
     private void viewTransferHistory() {
+        int userAccountId = tenmoService.getAccountFromUser().getUserId();
         Transfer[] transfers = tenmoService.listTransfers();
-        consoleService.printTransfers(transfers);
+
+
+        consoleService.printTransfers(transfers,userAccountId);
 
         // TODO Auto-generated method stub
 //        Transfer transfer = tenmoService.

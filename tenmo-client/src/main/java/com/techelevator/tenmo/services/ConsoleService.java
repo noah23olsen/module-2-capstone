@@ -113,14 +113,25 @@ public class ConsoleService {
         System.out.println("---------------------");
     }
 
-    public void printTransfers(Transfer[] transfers) {
+    public void printTransfers(Transfer[] transfers, int userAccountId) {
+
+
         System.out.println("----------------------------");
         System.out.println("Transfers");
-        System.out.printf("%-10s %-10s %-10s\n", "ID", "From/To", "Amount");
+        System.out.printf("%-10s %-20s %-50s\n", "ID", "From/To", "Amount");
         System.out.println("-----------------------------");
         for (Transfer t : transfers) {
-            System.out.printf("%-10s %-10s $%1.2f%n", t.getTransfer_id(),t.getFromUsername(),t.getAmount());
+
+
+            String fromOrTo = "";
+            if (t.getUserIdFrom() == userAccountId) {
+                fromOrTo = t.getFromUsername();
+            }
+            else {fromOrTo = t.getToUsername();}
+            System.out.printf("%-10s From: %-14s $%1.2f%n", t.getTransfer_id(), fromOrTo,t.getAmount());
+
         }
+
         System.out.println("---------------------");
         //TODO set if question so that FROM USER and TO USER can be plugged into the same print statement depending on which happened.
         //TODO Set FROM TO to have the "FROM:" or "TO:" inside the print formatting
